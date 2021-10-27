@@ -5,7 +5,7 @@ const PATRONYMIC_SPECIFIED = false;
 console.log ( NAME + surname + ', const( ' + typeof( NAME ) + 
 	' ) variable( ' + typeof( surname ) + ' )');
 console.error ( 'patronymic specified = ' + PATRONYMIC_SPECIFIED + 
-	' const( ' + typeof( PATRONYMIC_SPECIFIED ) + ' )' )
+	', const( ' + typeof( PATRONYMIC_SPECIFIED ) + ' )' )
 
 const DATE_OF_BIRTH = 24;
 const MONTH_OF_BIRTH = 03;
