@@ -67,7 +67,6 @@ if (_choice == 1) {
 						_text = 'оборотов' ;
 					} else {
 						four_wheel_turn = four_wheel_turn % 10;
-						console.log (four_wheel_turn);
 						_text = (four_wheel_turn == 1) ? 'оборот' : 
 						_text = ((four_wheel_turn < 5) && (four_wheel_turn != 0)) ? 'оборота' :
 						_text = ((four_wheel_turn < 10) || (four_wheel_turn == 0)) ? 'оборотов' : '';
