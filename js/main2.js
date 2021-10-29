@@ -19,7 +19,7 @@ if (_choice == 1) {
 			_text = ((num < 5) && (num != 0)) ? 'дня' :
 			_text = ((num < 10) || (num == 0)) ? 'дней' : '';
 		}
-		console.log(log_num + ' ' + _text, ', тип: ', typeof(log_num));
+		console.log(log_num + ' ' + _text);
 	} else {
 		console.warn(log_num +' - не является днём');
 	}
@@ -66,10 +66,3 @@ if (_choice == 1) {
 		location.reload()
 	}
 }
-
-
-
-
-
-
-
