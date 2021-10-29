@@ -5,7 +5,7 @@ _choice = Number(_choice);
 
 if (_choice == 1) {
 	let log_num;
-	let	num = prompt('введите число', 0);
+	let	num = prompt('введите число дней ', 0);
 
 	log_num = num;
 	num = Number(num);
