@@ -1,4 +1,4 @@
-let _choice = prompt('введите число условий задания js_2 (1 дни - 2 машина)', 2);
+let _choice = prompt('введите число условий задания js_2 (1 дни - 2 машина)', 1);
 let _text;
 
 _choice = Number(_choice);
@@ -26,8 +26,8 @@ if (_choice == 1) {
 } else {
 	if (_choice == 2) {
 	
-		let	way = prompt('введите расстояние (км)', 1);
-		let	diameter = prompt('введите диаметр колеса машины (дюймы)', 1253.8248);
+		let	way = prompt('введите расстояние (км)', 0);
+		let	diameter = prompt('введите диаметр колеса машины (дюймы)', 0);
 		let pi = 3.14;
 		let alert_one_wheel_turn;
 		let log_way = way;
