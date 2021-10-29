@@ -60,7 +60,7 @@ if (_choice == 1) {
 						_text = ((one_wheel_turn < 5) && (one_wheel_turn != 0)) ? 'оборота' :
 						_text = ((one_wheel_turn < 10) || (one_wheel_turn == 0)) ? 'оборотов' : '';
 					}
-					alert('За ' + log_way + ' (км) совершает 1 колесо ' + (alert_one_wheel_turn).toFixed(0) + ' ' + _text);
+					alert('За ' + log_way + ' (км) 1 колесо совершает ' + (alert_one_wheel_turn).toFixed(0) + ' ' + _text);
 					
 					if ((10 < four_wheel_turn) && (four_wheel_turn < 15)) {
 						_text = 'оборотов' ;
@@ -70,7 +70,7 @@ if (_choice == 1) {
 						_text = ((four_wheel_turn < 5) && (four_wheel_turn != 0)) ? 'оборота' :
 						_text = ((four_wheel_turn < 10) || (four_wheel_turn == 0)) ? 'оборотов' : '';
 					}
-					alert('За ' + log_way + ' (км) совершает 4 колеса ' + (alert_four_wheel_turn).toFixed(0) + ' ' + _text);
+					alert('За ' + log_way + ' (км) 4 колеса совершают ' + (alert_four_wheel_turn).toFixed(0) + ' ' + _text);
 				}
 			} else {
 				console.log('Зачем считать диаметром ноль?');
