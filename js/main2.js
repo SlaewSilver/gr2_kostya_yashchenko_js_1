@@ -30,8 +30,11 @@ if (_choice == 1) {
 		let	diameter = prompt('введите диаметр колеса машины (дюймы)', 0);
 		let pi = 3.14;
 		let alert_one_wheel_turn;
+		let alert_four_wheel_turn;
 		let log_way = way;
 		let log_diameter = diameter;
+		let one_wheel_turn;
+		let four_wheel_turn;
 		
 		way = Number(way);
 		diameter = Number(diameter);
@@ -45,6 +48,8 @@ if (_choice == 1) {
 				circumference = (circumference * 2.54) / 100000;
 				one_wheel_turn = way / circumference;
 				alert_one_wheel_turn = one_wheel_turn;
+				four_wheel_turn = one_wheel_turn * 4;
+				alert_four_wheel_turn = four_wheel_turn;
 				
 				if (!(isNaN(one_wheel_turn))) {
 					if ((10 < one_wheel_turn) && (one_wheel_turn < 15)) {
@@ -55,7 +60,17 @@ if (_choice == 1) {
 						_text = ((one_wheel_turn < 5) && (one_wheel_turn != 0)) ? 'оборота' :
 						_text = ((one_wheel_turn < 10) || (one_wheel_turn == 0)) ? 'оборотов' : '';
 					}
-					alert('За ' + log_way + ' (км) совершает ' + (alert_one_wheel_turn).toFixed(0) + ' ' + _text);
+					alert('За ' + log_way + ' (км) совершает 1 колесо ' + (alert_one_wheel_turn).toFixed(0) + ' ' + _text);
+					
+					if ((10 < four_wheel_turn) && (four_wheel_turn < 15)) {
+						_text = 'оборотов' ;
+					} else {
+						four_wheel_turn = four_wheel_turn % 10;
+						_text = (four_wheel_turn == 1) ? 'оборот' : 
+						_text = ((four_wheel_turn < 5) && (four_wheel_turn != 0)) ? 'оборота' :
+						_text = ((four_wheel_turn < 10) || (four_wheel_turn == 0)) ? 'оборотов' : '';
+					}
+					alert('За ' + log_way + ' (км) совершает 4 колеса ' + (alert_four_wheel_turn).toFixed(0) + ' ' + _text);
 				}
 			} else {
 				console.log('Зачем считать диаметром ноль?');
