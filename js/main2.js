@@ -46,7 +46,7 @@ if (_choice == 1) {
 			if (diameter !== 0) {
 				circumference = diameter * pi;
 				circumference = (circumference * 2.54) / 100000;
-				one_wheel_turn = way / circumference;
+				one_wheel_turn = Math.round(way / circumference);
 				alert_one_wheel_turn = one_wheel_turn;
 				
 				four_wheel_turn = Math.round(one_wheel_turn) * 4;
