@@ -1,4 +1,4 @@
-let _choice = prompt('введите число условий задания js_2 (1 дни - 2 машина)', 1);
+let _choice = prompt('введите условие задания js_2 (1 дни - 2 машина)', 1);
 let _text;
 
 _choice = Number(_choice);
