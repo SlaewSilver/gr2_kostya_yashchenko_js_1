@@ -11,12 +11,14 @@ if (a == 1) {
 	let empty; //переменная перестановки
 	let i;
 	let result2 = 0; //количество переменных
-	let min_allert = min;
-	let max_allert = max;
 
 	min = prompt('Введите первую переменную ');
 	max = prompt('Введите вторую переменную ');
 	result = 0;
+	
+	let min_allert = min;
+	let max_allert = max;
+	
 	min = Number(min);
 	max = Number(max);
 	
