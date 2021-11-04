@@ -28,7 +28,8 @@ if (choice == 2) {
 	let input_text = prompt('Введите текст', 'ТЕЛЕФОН');
 
 	reverse_text(input_text);
-	console.log(`Строка в обратном порядке: ${array_text.join('')}`);
+	console.log(`Введена строка: ${input_text}`);
+	console.log(`В обратном порядке: ${array_text.join('')}`);
 
 	function reverse_text (_text) {
 		j = 0;
@@ -62,7 +63,7 @@ if (choice == 2) {
 		while (examination = true) {
 			let text2 = prompt('Введите слово',);
 			
-			if ((text1 !== null) || (text2 !== null)) {
+			if ((text1 != null) && (text2 != null)) {
 				text1 = text1.toLowerCase();
 				text2 = text2.toLowerCase();
 				
