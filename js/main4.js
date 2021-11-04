@@ -19,10 +19,8 @@ if (choice == 2) {
 
 	let result1 = get_min(a);
 	
-	console.log('Ваш массив');
-	console.log(a);
-	console.log('Минимальное значение');
-	console.log(result1);
+	console.log(`Ваш массив: ${a}`);
+	console.log(`Минимальное значение: ${result1}`);
 
 	let array_text = [];
 	let input_text = prompt('Введите текст', 'ТЕЛЕФОН');
@@ -61,24 +59,28 @@ if (choice == 2) {
 		let coint = 0;
 		
 		while (examination = true) {
+			if (text1 == null) {
+				alert(`Игра окончена. Ваши очки: ${coint}`);
+				break;
+			}
+			
 			let text2 = prompt('Введите слово',);
 			
-			if ((text1 != null) && (text2 != null)) {
-				text1 = text1.toLowerCase();
-				text2 = text2.toLowerCase();
-				
-				if ((text1.substr(text1.length-1, 1)) == (text2.substr(0, 1))) {
-					coint++;
-				} else {
-					alert(`Игра окончена. Ваши очки: ${coint}`);
-					break;
-				}
-				
-				text1 = text2;
+			if (text2 == null) {
+				alert(`Игра окончена. Ваши очки: ${coint}`);
+				break;
+			}
+			
+			text1 = text1.toLowerCase();
+			text2 = text2.toLowerCase();
+			
+			if ((text1.substr(text1.length-1, 1)) == (text2.substr(0, 1))) {
+				coint++;
 			} else {
 				alert(`Игра окончена. Ваши очки: ${coint}`);
 				break;
 			}
+			text1 = text2;
 		}
 	} else {
 		alert(`Введил отличное значение от 1 и 2: ${choice}`);
