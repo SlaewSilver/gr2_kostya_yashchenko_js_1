@@ -1,6 +1,6 @@
 let i;
 let l = 0;
-let name = 'каЛькуЛятор';
+let name = 'Новый калькулятор';
 
 start_calculator();
 but.style.display = "block";
