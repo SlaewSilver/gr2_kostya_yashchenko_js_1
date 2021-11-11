@@ -46,7 +46,9 @@ function start_calculator () {
 					alert(`Не допустимая первая переменная: ${d}`);
 				}
 				break;
-			case '5': console.clear();
+			case '5': 
+				let calculator_clear = new Run_calculator(name).clear(); 
+				break;
 		}
 	}
 }
@@ -116,6 +118,9 @@ function Run_calculator (name) {
 		} else {
 			console.log(`${this.name} (${date}): ${action} = ${resu}, (${arr})`);
 		}
+	};
+	this.clear = function () {
+		console.clear();
 	};
 };
 
