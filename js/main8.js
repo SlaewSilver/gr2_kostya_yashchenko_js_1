@@ -11,9 +11,9 @@ let quantity = 11;
 
 repeat()
 
-function create_div (...arg) {
-	add_style(arg[0], arg[1], arg[2], arg[3]);
-	if (arg[4] == 1) {
+function create_div (...arrg) {
+	add_style(arrg[0], arrg[1], arrg[2], arrg[3]);
+	if (arrg[4] == 1) {
 		for (let i = 1; i < quantity; i++) {
 			div[i] = document.createElement('div');
 			if (i % 3 == 0) {
@@ -24,7 +24,7 @@ function create_div (...arg) {
 			document.body.append(div[i]);
 		}
 	} else {
-		if (arg[4] == 4) {
+		if (arrg[4] == 4) {
 			for (let i = 1; i < quantity; i++) div[i].remove();
 			document.body.style.background = 'black';
 		}	
@@ -51,10 +51,10 @@ function repeat () {
 }
 
 //в head добавить класс
-function add_style(...arg) {
+function add_style(...arrg) {
 	if ((document.querySelectorAll('style')).length == 1) document.querySelector('style').remove()
 	let add_list_style = document.createElement('style');
-	let text_style = document.createTextNode('\n.task {\n height: '+arg[0]+'px; \n width: '+arg[1]+'px; \n background: '+arg[2]+'; \n}\n.task2 {\n height: '+arg[0]+'px; \n width: '+arg[1]+'px; \n background: '+arg[3]+'; \n}');
+	let text_style = document.createTextNode('\n.task {\n height: '+arrg[0]+'px; \n width: '+arrg[1]+'px; \n background: '+arrg[2]+'; \n}\n.task2 {\n height: '+arrg[0]+'px; \n width: '+arrg[1]+'px; \n background: '+arrg[3]+'; \n}');
 	add_list_style.appendChild(text_style);
 	document.head.appendChild(add_list_style);
 	let text_style2 = document.createTextNode('\n.task3 {\n height: 50px; \n width: 150px; \n background: green; \n}\n.task4 {\n height: 100px; \n width: 200px; \n background: orange; \n}');
