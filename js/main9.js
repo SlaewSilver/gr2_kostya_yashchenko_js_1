@@ -93,7 +93,7 @@ setTimeout(function () {
 			{
 				'height': '50px',
 				'width': '150px',
-				'background': 'green', 
+				'background': 'gray', 
 		}).appendTo('body');
 	}
 });
@@ -103,8 +103,8 @@ $(document).on('click','div',function(){
 	if (color == 'rgb(64, 224, 208)') {
 		alert('Бирюзовый');
 	}
-	if (color == 'rgb(0, 128, 0)') {
-		alert('Зелёный');
+	if (color == 'rgb(128, 128, 128)') {
+		alert('Серый');
 	}
 });
 
