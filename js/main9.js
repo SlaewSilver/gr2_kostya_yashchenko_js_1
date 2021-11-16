@@ -79,7 +79,7 @@ setTimeout(function () {
 	}).remove();
 }, 10000);
 
-//вторая часть, появляется при нажатии на enter
+//вторая часть, появляется при нажатии на Enter
  $("body").keypress(function(e) {
 	if (e.which == 13) {
 		$("div").remove();
