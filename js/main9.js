@@ -77,8 +77,20 @@ setTimeout(function () {
 		if ((index % 3 === 0)&&(index % 15 !== 0))
 		return index
 	}).remove();
+	$("<div/>").addClass("rectangle1").css(
+		{
+			'height': '150px',
+			'width': '50px',
+			'background': 'turquoise', 
+	}).appendTo('body');
+	$("<div/>").addClass("rectangle2").css(
+		{
+			'height': '50px',
+			'width': '150px',
+			'background': 'gray', 
+	}).appendTo('body');
 }, 10000);
-
+/*
 //вторая часть, появляется при нажатии на Enter
  $("body").keypress(function(e) {
 	if (e.which == 13) {
@@ -97,7 +109,7 @@ setTimeout(function () {
 		}).appendTo('body');
 	}
 });
-
+*/
 $(document).on('click','div',function(){
 	var color = $(this).css("background-color");
 	if (color == 'rgb(64, 224, 208)') {
@@ -107,9 +119,18 @@ $(document).on('click','div',function(){
 		alert('Серый');
 	}
 });
-
+/*
 $(document).on('mouseover','div',function(){
 	let height_ = $(this).css("height");
 	let width_ = $(this).css("width");
 	console.log(`Высота: ${height_}; Ширина: ${width_}`);
+});
+*/
+$(document).on('mouseover','div',function(){
+	var color = $(this).css("background-color");
+		if ((color == 'rgb(64, 224, 208)')||(color == 'rgb(128, 128, 128)')) {
+		let height_ = $(this).css("height");
+		let width_ = $(this).css("width");
+		console.log(`Высота: ${height_}; Ширина: ${width_}`);
+	}
 });
