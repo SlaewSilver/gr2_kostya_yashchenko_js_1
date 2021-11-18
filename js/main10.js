@@ -44,7 +44,7 @@ window.onload = function() {
 				let objectURL = URL.createObjectURL(myBlob);
 				for (let i=0; i < 100; i++) {
 					img1 = document.createElement('img');
-					img1.style.cssText = 'height: 50px; width: 150px';
+					img1.style.cssText = 'height: 100px; width: 200px';
 					img1.className = 'img1_';
 					img1.src = objectURL;
 					addValue(items[0], 'img_', img1);
@@ -85,6 +85,7 @@ window.onload = function() {
 				for (let i=0; i < json.length; i++) {
 					rectangle1 = document.createElement('div');
 					rectangle1.className = 'task3';
+					rectangle1.style.cssText = 'text-shadow: 1px 1px 2px black, 0 0 1em red; color: white; font-size: 2em;';
 					rectangle1.innerText = `Title: ${json[i].title}\n Body: ${json[i].body}`;
 					addValue(items[2], 'div_', rectangle1);
 					addValue(items[2], 'object_', json[i]);
