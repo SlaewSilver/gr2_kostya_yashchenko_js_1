@@ -87,7 +87,7 @@ function Block (options) {
 		result.id = this.id;
 		result.style.cssText = `
 		display: inline-block;
-		border-radius: 15px;
+		border-radius: 5px;
 		position: absolute;
 		left: ${this.x}px;
 		top: ${this.y}px;
