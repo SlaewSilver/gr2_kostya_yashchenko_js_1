@@ -42,7 +42,7 @@ function Ball (options) {
 		width: ${this.diametr}px;
 		height: ${this.diametr}px;
 		background: ${this.color}`;
-		result.innerText = this.id;
+		//result.innerText = this.id;
 		document.documentElement.append(result);
 		return result;
     }
@@ -87,13 +87,14 @@ function Block (options) {
 		result.id = this.id;
 		result.style.cssText = `
 		display: inline-block;
+		border-radius: 15px;
 		position: absolute;
 		left: ${this.x}px;
 		top: ${this.y}px;
 		width: ${this.width}px;
 		height: ${this.height}px;
 		background-color: ${this.color}`;
-		result.innerText = this.id;
+		//result.innerText = this.id;
 		document.documentElement.append(result);
 		return result;
     }
@@ -172,6 +173,7 @@ function Racket (options) {
 		let result = document.createElement('div');
 		result.style.cssText = `
 		position: absolute;
+		border-radius: 15px;
 		left: ${this.x}px;
 		top: ${this.y}px;
 		width: ${this.width}px;
