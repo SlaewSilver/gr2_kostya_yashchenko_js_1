@@ -232,6 +232,7 @@ let box_id = [];
 let box_id_ind = 0;
 let value_end = 0;
 let result_end = 0;
+let racket_y = 1;
 
 objects.push( new Wall({
 	x: 0,
@@ -306,14 +307,8 @@ function generate_Block() {
 	let quantity_x = Math.round((document.documentElement.clientWidth - 40) / point_x);
 	let quantity_y = Math.round((document.documentElement.clientHeight / 2) / point_y);
 	
-	console.log(quantity_x);
-	console.log(quantity_y);
-	
 	let divider_x = 1 + Math.random() * (1 + 1 - 1);
 	let divider_y = 1 + Math.random() * (1 + 1 - 1);
-	
-	console.log('x = ' +divider_x);
-	console.log('y = '+ divider_y);
 	
 	let n = quantity_x + quantity_y;
 	
@@ -417,7 +412,9 @@ function checkCollision (objectA, objectB) {
 		}
 	
 		if (ball && racket) {
-			if (ball.y + ball.diametr >= racket.y) {
+			if (ball.y + ball.diametr >= racket.y
+				&& ball.x + ball.diametr == racket.x
+				) {
 				for (let i=Math.round(racket.x); i<Math.round(racket.x) + racket.width; i++) {
 					for (let j=Math.round(ball.x); j<Math.round(ball.x) + ball.diametr; j++) {
 						if (i == j) {
@@ -427,17 +424,19 @@ function checkCollision (objectA, objectB) {
 					}
 				}
 			}
-				
-			if (ball.x + ball.diametr >= racket.x 
-				&& ball.x <= racket.x + racket.width
-				&& ball.y + ball.diametr >= racket.y 
-				&& ball.y  <= racket.y + racket.height
-			) {
-				for (let i=Math.round(racket.y); i<Math.round(racket.y) + racket.height; i++) {
-					for (let j=Math.round(ball.y); j<Math.round(ball.y) + ball.diametr; j++) {
-						if (i == j) {
-							ball.invertDirectionX();
-							return;
+			if (racket_y = 1) {
+				if (ball.x + ball.diametr >= racket.x 
+					&& ball.x <= racket.x + racket.width 
+					&& ball.y + ball.diametr >= racket.y 
+					&& ball.y  <= racket.y + racket.height
+				) {
+					for (let i=Math.round(racket.y); i<Math.round(racket.y) + racket.height; i++) {
+						for (let j=Math.round(ball.y); j<Math.round(ball.y) + ball.diametr; j++) {
+							if (i == j) {
+								racket_y++;
+								ball.invertDirectionX();
+								return;
+							}
 						}
 					}
 				}
