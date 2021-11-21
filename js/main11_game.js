@@ -229,15 +229,15 @@ function checkKey(e) {
 */
 let objects = [];
 let box_id = [];
-let box_id_ind = -1;
+let box_id_ind = 0;
 let value_end = 0;
 let result_end = 0;
 
 objects.push( new Wall({
 	x: 0,
 	y: 0,
-	//width: document.documentElement.clientWidth,
-	width: 965,
+	width: document.documentElement.clientWidth,
+	//width: 965,
 	height: 10,
 }));
 
@@ -249,8 +249,8 @@ objects.push( new Wall({
 }));
 
 objects.push( new Wall({
-	//x: document.documentElement.clientWidth - 10,
-	x: 955,
+	x: document.documentElement.clientWidth - 10,
+	//x: 955,
 	y: 0,
 	width: 10,
 	height: document.documentElement.clientHeight,
@@ -282,8 +282,8 @@ objects.push( new Ball({
 objects.push( new Ball({
 	diametr: 30,
 	color: random_color(),
-	x: 450,
-	y: 450,
+	x: Math.round(document.documentElement.clientWidth / 2),
+	y: Math.round(document.documentElement.clientHeight / 1.5),
 	startDirectionX: -1,
 }));
   
@@ -300,10 +300,28 @@ let r = new Racket({
 	objects.push(r);
   
 function generate_Block() {
-	let n=20;
-	let k=9;
-	let array_x=Array.from({length:12},(v,k)=>k*75);
-	let array_y=Array.from({length:4},(v,k)=>k*100);
+	let point_x = 75;
+	let point_y = 50;
+	
+	let quantity_x = Math.round((document.documentElement.clientWidth - 40) / point_x);
+	let quantity_y = Math.round((document.documentElement.clientHeight / 2) / point_y);
+	
+	console.log(quantity_x);
+	console.log(quantity_y);
+	
+	let divider_x = Math.floor(1 + Math.random() * (2 + 1 - 1));
+	let divider_y = Math.floor(1 + Math.random() * (2 + 1 - 1));
+	
+	console.log('x = ' +divider_x);
+	console.log('y = '+ divider_y);
+	
+	let n = quantity_x + quantity_y;
+	
+	let k = quantity_x / divider_x;
+	let kk = quantity_y / divider_y;
+	
+	let array_x=Array.from({length: quantity_x},(v,k) => k * point_x);
+	let array_y=Array.from({length: quantity_y},(v,k) => k * point_y);
 	let shuffled_x = array_x.sort(function(){return .5 - Math.random()});
 	let shuffled_y = array_y.sort(function(){return .5 - Math.random()});
 	let selected_x=shuffled_x.slice(0,n);
@@ -311,7 +329,7 @@ function generate_Block() {
 	
 	result_end = k * selected_y.length;
 	for (let i=0; i<k; i++) {
-		for (let j=0; j<selected_y.length; j++)
+		for (let j=0; j<kk; j++)
 			objects.push( new Block({
 				diametr: 25,
 				color: random_color(),
@@ -322,12 +340,13 @@ function generate_Block() {
 }
 
 function generate_Id() {
-	box_id_ind++;
-	box_id[box_id_ind] = Math.trunc(Math.random() * 1000);
-	if (box_id.includes(box_id[box_id_ind]) == true) {
-		return box_id[box_id_ind];
+	let value = Math.trunc(Math.random() * 1000);
+	if (box_id.includes(value)) {
+		generate_Id();
 	} else {
-		generate_Id()
+		box_id[box_id_ind] = value;
+		box_id_ind++;		
+		return value;
 	}
 }
 
@@ -534,6 +553,6 @@ function doGameStep () {
 		}
 	}
   
-	//document.body.style.overflow = 'hidden';
+	document.body.style.overflow = 'hidden';
 	setTimeout(doGameStep, GAME_STEP_DELAY);
 });
