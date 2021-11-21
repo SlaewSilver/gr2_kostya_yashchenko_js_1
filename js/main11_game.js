@@ -396,7 +396,7 @@ function generate_Block() {
 }
 
 function generate_Id() {
-	let value = Math.trunc(Math.random() * 10000);
+	let value = Math.trunc(Math.random() * 100000);
 	if (box_id.includes(value)) {
 		generate_Id();
 	} else {
