@@ -293,7 +293,7 @@ function add_ball() {
 		y: Math.round(document.documentElement.clientHeight / 2),
 		startDirectionX: directionX,
 	}));
-	setTimeout(add_ball, 15000);
+	time_add_ball = setTimeout(add_ball, 15000);
 }
   
 function generate_Block() {
@@ -580,6 +580,7 @@ function doGameStep () {
 		if (!gameOver) {
 			setTimeout(doGameStep, GAME_STEP_DELAY);
 		} else {
+			clearTimeout(time_add_ball);
 			alert('Игра закончена');
 		}
 	}
