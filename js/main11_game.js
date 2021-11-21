@@ -71,6 +71,55 @@ function Ball (options) {
     this.invertDirectionY = function () {
 		this.directionY = this.directionY * -1;
     }
+}//-----------
+function Buns (options) {
+    this.id = generate_Id();
+    this.diametr = options.diametr;
+    this.color = options.color;
+    this.x = options.x;
+    this.y = options.y;
+    this.directionY = 1;
+
+    //console.log('ball', this.id, this.directionX);
+    this.createView = function () {
+		let result = document.createElement('div');
+		result.id = this.id;
+		result.style.cssText = `
+		display: inline-block;
+		position: absolute;
+		left: ${this.x}px;
+		top: ${this.y}px;
+		width: ${this.diametr}px;
+		height: ${this.diametr}px;
+		background: ${this.color}`;
+		//result.innerText = this.id;
+		document.documentElement.append(result);
+		return result;
+    }
+
+    this.div = this.createView();
+
+    this.renderState = function () {
+		this.y = this.y + this.directionY;
+    }
+
+    this.renderView = function () {
+		this.div.style.left = this.x + 'px';
+		this.div.style.top = this.y + 'px';
+    }
+
+    this.live = function () {
+		this.renderState();
+		this.renderView();  
+    }
+
+    this.invertDirectionX = function () {
+
+    }
+
+    this.invertDirectionY = function () {
+
+    }
 }
   //----------------
 function Block (options) {
@@ -228,6 +277,7 @@ function checkKey(e) {
 }
 */
 let objects = [];
+let objects2 = [];
 let box_id = [];
 let box_id_ind = 0;
 let value_end = 0;
@@ -238,7 +288,6 @@ objects.push( new Wall({
 	x: 0,
 	y: 0,
 	width: document.documentElement.clientWidth,
-	//width: 965,
 	height: 10,
 }));
 
@@ -251,7 +300,6 @@ objects.push( new Wall({
 
 objects.push( new Wall({
 	x: document.documentElement.clientWidth - 10,
-	//x: 955,
 	y: 0,
 	width: 10,
 	height: document.documentElement.clientHeight,
@@ -287,6 +335,19 @@ objects.push( new Ball({
 	y: Math.round(document.documentElement.clientHeight / 1.5),
 	startDirectionX: -1,
 }));
+
+function add_box(x_, y_, width_) {
+	console.log(x_);
+	console.log(y_);
+	
+	console.log(width_);
+	objects.push( new Buns ({
+		diametr: 25,
+		color: random_color(),
+		x: `${x_ + (width_ / 2)}`,
+		y: `${y_ + (width_ / 2)}`,
+	}));
+}
   
 generate_Block()
 
@@ -335,7 +396,7 @@ function generate_Block() {
 }
 
 function generate_Id() {
-	let value = Math.trunc(Math.random() * 1000);
+	let value = Math.trunc(Math.random() * 10000);
 	if (box_id.includes(value)) {
 		generate_Id();
 	} else {
@@ -486,8 +547,12 @@ function checkCollision (objectA, objectB) {
 									if (objects[k] != undefined 
 										&& objects[k].id != undefined 
 										&& block.id != undefined )
-									if (block.id == objects[k].id) {	
+									if (block.id == objects[k].id) {
+										if ((Math.floor(Math.random() * 1)) <= 1) {
+											add_box(objects[k].x, objects[k].y, objects[k].width)
+										}
 										value_end++;
+										//console.log(objects[k]);
 										delete objects[k];
 									}
 							}
