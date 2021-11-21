@@ -327,7 +327,7 @@ function generate_Block() {
 	let selected_x=shuffled_x.slice(0,n);
 	let selected_y=shuffled_y.slice(0,n);
 	
-	result_end = k + kk;
+	result_end = k * kk;
 	for (let i=0; i<k; i++) {
 		for (let j=0; j<kk; j++)
 			objects.push( new Block({
