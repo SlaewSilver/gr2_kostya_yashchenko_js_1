@@ -309,16 +309,16 @@ function generate_Block() {
 	console.log(quantity_x);
 	console.log(quantity_y);
 	
-	let divider_x = Math.floor(1 + Math.random() * (2 + 1 - 1));
-	let divider_y = Math.floor(1 + Math.random() * (2 + 1 - 1));
+	let divider_x = 1 + Math.random() * (1 + 1 - 1);
+	let divider_y = 1 + Math.random() * (1 + 1 - 1);
 	
 	console.log('x = ' +divider_x);
 	console.log('y = '+ divider_y);
 	
 	let n = quantity_x + quantity_y;
 	
-	let k = quantity_x / divider_x;
-	let kk = quantity_y / divider_y;
+	let k = Math.round(quantity_x / divider_x);
+	let kk = Math.round(quantity_y / divider_y);
 	
 	let array_x=Array.from({length: quantity_x},(v,k) => k * point_x);
 	let array_y=Array.from({length: quantity_y},(v,k) => k * point_y);
@@ -327,7 +327,7 @@ function generate_Block() {
 	let selected_x=shuffled_x.slice(0,n);
 	let selected_y=shuffled_y.slice(0,n);
 	
-	result_end = k * selected_y.length;
+	result_end = k + kk;
 	for (let i=0; i<k; i++) {
 		for (let j=0; j<kk; j++)
 			objects.push( new Block({
