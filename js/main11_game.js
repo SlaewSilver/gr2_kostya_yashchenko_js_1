@@ -415,9 +415,7 @@ function checkCollision (objectA, objectB) {
 			
 			if (ball.y + ball.diametr <= racket.y
 				&& ball.y + ball.diametr + 0.1 >= racket.y 
-				) {
-					console.log('y',ball.y + ball.diametr,racket.y);
-					console.log('x',ball.y + ball.diametr,racket.x);
+			) {
 				for (let i=Math.round(racket.x); i<Math.round(racket.x) + racket.width; i++) {
 					for (let j=Math.round(ball.x); j<Math.round(ball.x) + ball.diametr; j++) {
 						if (i == j) {
