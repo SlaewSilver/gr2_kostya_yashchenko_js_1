@@ -1,0 +1,120 @@
+/*
+С помощью метода fetch получить масcив данных по Google Api Calendar
+
+и вывести его на страницу с версткой в виде блоков.
+Каждый блок должен содержать стилизованный текст, картинку (статичную по умолчанию, или рандомную, или по ссылке из данных) 
+и 2 кнопки с такими действиями: alert([любая инфа по этому объекту]) и удаление блока со страницы.
+Генерацию блоков обертнуть в асинхронную функцию, добавление блоков в дерево сделать синхронной функцией.
+*/
+let startDate = null; 
+let finishDate = new Date();
+let length_content ;
+let items_ = [{},{},{}];
+
+function addValue(obj, key, value) {
+    if (obj.hasOwnProperty(key)) {
+        obj[key].push(value);
+    } else {
+        obj[key] = [value];
+    }
+}
+
+function alert_of_button (value) {
+	alert(`Created: ${items_[2].object_[value].created}\nCreator: ${items_[2].object_[value].creator.email}`);
+}
+
+function delete_of_button (value) {
+	if (confirm(`Уверены, что нужно удалить?`)) {
+		document.getElementsByClassName('task3')[value].remove();
+
+		let k = document.getElementsByClassName('task3').length;	
+		for (let i=0; i < k; i++) {
+			document.getElementsByClassName('delete')[i].setAttribute('onclick', `delete_of_button(${i})`);
+		};
+	}
+}
+
+window.onload = function() {
+	let func_img = new Promise((resolve) => {
+		fetch('https://avatars.mds.yandex.net/get-zen_doc/233051/pub_5d5665bd5ba2b500aeee9366_5d566602d5135c00adea28c2/scale_1200')
+			.then((response) => response.blob())
+			.then((myBlob) => {
+				let objectURL = URL.createObjectURL(myBlob);
+				for (let i=0; i < 100; i++) {
+					img1 = document.createElement('img');
+					img1.style.cssText = 'height: 100px; width: 225px';
+					img1.className = 'img1_';
+					img1.src = objectURL;
+					addValue(items_[0], 'img_', img1);
+				}
+				resolve();
+			});
+	});
+	let content_element = new Promise((resolve) => {
+		fetch('https://www.googleapis.com/calendar/v3/calendars/konstantin12.072@gmail.com/events?key=AIzaSyA2u6DBniA7VSnZIuKuoZAOIupYRkPQ4I8&singleEvents=true&orderBy=starttime&timeMin=2018-06-03T10:00:00-07:00&timeMax=2022-06-03T10:00:00-07:00')
+			.then((response) => response.json())
+			.then((json) => {
+				length_content = json.items.length;
+				text_colendar = json.items;
+				
+				for (let i=0; i < length_content; i++) {
+					div_box = document.createElement('div');
+					div_box.style.cssText = 'display: flex; justify-content: space-evenly;';
+					div_box.className = 'button_box';
+					addValue(items_[1], 'box_', div_box);
+					
+					button_alert = document.createElement('button');
+					button_alert.className = 'alerts';
+					button_alert.innerText = 'действие alert';
+					button_alert.setAttribute ('onclick', `alert_of_button(${i})`);
+					addValue(items_[1], 'alert_', button_alert);
+					
+					button_delete = document.createElement('button');
+					button_delete.className = 'delete';
+					button_delete.innerText = 'delete';
+					button_delete.setAttribute ('onclick', `delete_of_button(${i})`);
+					addValue(items_[1], 'delete_', button_delete);
+				}
+				
+				for (let i=0; i < length_content; i++) {
+					rectangle1 = document.createElement('div');
+					rectangle1.className = 'task3';
+					rectangle1.style.cssText = 'text-shadow: 1px 1px 2px black, 0 0 1em red; color: white; font-size: 2em;';
+					rectangle1.innerText = `
+						Created: ${text_colendar[i].created}
+						Creator: ${text_colendar[i].creator.email}
+						Start: ${text_colendar[i].start.dateTime}
+						Organizer: ${text_colendar[i].organizer.email}
+						Status: ${text_colendar[i].status}\n `;
+					addValue(items_[2], 'div_', rectangle1);
+					addValue(items_[2], 'object_', text_colendar[i]);
+				}
+				resolve();
+			});
+	});
+	Promise.all([func_img,content_element]) 
+		.then(() => {
+			//for (let j=0; j < 100; j++) {
+				for (let i=0; i < items_[2].div_.length; i++) {
+					document.body.append(items_[2].div_[i]);
+				}
+				for (let i=0; i < items_[2].div_.length; i++) {
+					document.getElementsByClassName('task3')[i].appendChild(items_[0].img_[i]);
+					document.getElementsByClassName('task3')[i].appendChild(items_[1].box_[i]);
+				}
+				for (let i=0; i < items_[2].div_.length; i++) {
+					document.getElementsByClassName('button_box')[i].appendChild(items_[1].alert_[i]);
+					document.getElementsByClassName('button_box')[i].appendChild(items_[1].delete_[i]);
+				}
+			//}
+			startDate = new Date(); 
+			console.log(`load: ${startDate - finishDate} ms`);
+			
+		});
+}
+
+/*
+Получение данных из гугл календаря. https://www.googleapis.com/calendar/v3/calendars/EMAIL@gmail.com/events?key=API_KEY&singleEvents=true&orderBy=starttime&timeMin=2018-06-03T10:00:00-07:00&timeMax=2022-06-03T10:00:00-07:00 
+Нужно получить oauth key в консоли разработчика, поменять  EMAIL@gmail.com и API_KEY из консоли. В конце есть время, его можно менять.
+*/
+
