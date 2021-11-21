@@ -229,11 +229,11 @@ function checkKey(e) {
 */
 let objects = [];
 let box_id = [];
-let value_add_ball = setInterval(add_ball, 15000);
 let box_id_ind = 0;
 let value_end = 0;
 let result_end = 0;
 let racket_y = 1;
+let time_add_ball = setTimeout(add_ball, 7000);
 
 objects.push( new Wall({
 	x: 0,
@@ -261,21 +261,13 @@ objects.push( new Ball({
 	color: random_color(),
 	x: Math.round(document.documentElement.clientWidth / 2),
 	y: Math.round(document.documentElement.clientHeight / 1.5),
-	startDirectionX: -1,
+	startDirectionX: Math.round(randomase(-1,0)),
 }));
 
-
-
-function add_ball() {
-	objects.push( new Ball({
-		diametr: 30,
-		color: random_color(),
-		x: Math.round(document.documentElement.clientWidth / 2),
-		y: Math.round(document.documentElement.clientHeight / 2),
-		startDirectionX: -1,
-	}));
+function randomase (min, max) {
+	return ((Math.random() * (max + 1 - min)) + min);
 }
-  
+
 generate_Block()
 
 let r = new Racket({
@@ -288,6 +280,22 @@ let r = new Racket({
 	document.documentElement.onmousemove = r.doMove.bind(r);
 	objects.push(r);
   
+  
+function add_ball() {
+	let directionX;
+	do {
+		directionX = Math.round(randomase(-1,0));
+	} while (directionX == 0)
+	objects.push( new Ball({
+		diametr: 30,
+		color: random_color(),
+		x: Math.round(document.documentElement.clientWidth / 2),
+		y: Math.round(document.documentElement.clientHeight / 2),
+		startDirectionX: directionX,
+	}));
+	setTimeout(add_ball, 15000);
+}
+  
 function generate_Block() {
 	let point_x = 75;
 	let point_y = 50;
@@ -295,8 +303,8 @@ function generate_Block() {
 	let quantity_x = Math.round((document.documentElement.clientWidth - 40) / point_x);
 	let quantity_y = Math.round((document.documentElement.clientHeight / 2) / point_y);
 	
-	let divider_x = 1 + Math.random() * (1 + 1 - 1);
-	let divider_y = 1 + Math.random() * (1 + 1 - 1);
+	let divider_x = randomase(1, 1);
+	let divider_y = randomase(1, 1);
 	
 	let n = quantity_x + quantity_y;
 	
@@ -371,16 +379,16 @@ function checkCollision (objectA, objectB) {
 			block = objectB;
 		}
 
-		/*if (objectA instanceof Ball) {
-			ball = objectA;
+		if (objectA instanceof Ball) {
+			ball2 = objectA;
 		} else if (objectA instanceof Wall) {
-			ball = objectA;
-		}*/
+			wall = objectA;
+		}
 
 		if (objectB instanceof Ball) {
 			ball2 = objectB;
 		} else if (objectB instanceof Wall) {
-			ball2 = objectB;
+			wall = objectB;
 		}
 	  
 		if (ball && wall) {
