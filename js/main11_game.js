@@ -71,55 +71,6 @@ function Ball (options) {
     this.invertDirectionY = function () {
 		this.directionY = this.directionY * -1;
     }
-}//-----------
-function Buns (options) {
-    this.id = generate_Id();
-    this.diametr = options.diametr;
-    this.color = options.color;
-    this.x = options.x;
-    this.y = options.y;
-    this.directionY = 1;
-
-    //console.log('ball', this.id, this.directionX);
-    this.createView = function () {
-		let result = document.createElement('div');
-		result.id = this.id;
-		result.style.cssText = `
-		display: inline-block;
-		position: absolute;
-		left: ${this.x}px;
-		top: ${this.y}px;
-		width: ${this.diametr}px;
-		height: ${this.diametr}px;
-		background: ${this.color}`;
-		//result.innerText = this.id;
-		document.documentElement.append(result);
-		return result;
-    }
-
-    this.div = this.createView();
-
-    this.renderState = function () {
-		this.y = this.y + this.directionY;
-    }
-
-    this.renderView = function () {
-		this.div.style.left = this.x + 'px';
-		this.div.style.top = this.y + 'px';
-    }
-
-    this.live = function () {
-		this.renderState();
-		this.renderView();  
-    }
-
-    this.invertDirectionX = function () {
-
-    }
-
-    this.invertDirectionY = function () {
-
-    }
 }
   //----------------
 function Block (options) {
@@ -277,8 +228,8 @@ function checkKey(e) {
 }
 */
 let objects = [];
-let objects2 = [];
 let box_id = [];
+let value_add_ball = setInterval(add_ball, 15000);
 let box_id_ind = 0;
 let value_end = 0;
 let result_end = 0;
@@ -304,30 +255,7 @@ objects.push( new Wall({
 	width: 10,
 	height: document.documentElement.clientHeight,
 }));
-/*
-objects.push( new Ball({
-	diametr: 50,
-	color: 'blue',
-	x: 50,
-	y: 50,
-	startDirectionX: -0.8,
-}));
 
-objects.push( new Ball({
-	diametr: 40,
-	color: 'orange',
-	x: 200,
-	y: 200,
-}));
-
-objects.push( new Ball({
-	diametr: 60,
-	color: 'purple',
-	x: 300,
-	y: 300,
-	startDirectionX: 0.8,
-}));
-*/
 objects.push( new Ball({
 	diametr: 30,
 	color: random_color(),
@@ -336,16 +264,15 @@ objects.push( new Ball({
 	startDirectionX: -1,
 }));
 
-function add_box(x_, y_, width_) {
-	console.log(x_);
-	console.log(y_);
-	
-	console.log(width_);
-	objects.push( new Buns ({
-		diametr: 25,
+
+
+function add_ball() {
+	objects.push( new Ball({
+		diametr: 30,
 		color: random_color(),
-		x: `${x_ + (width_ / 2)}`,
-		y: `${y_ + (width_ / 2)}`,
+		x: Math.round(document.documentElement.clientWidth / 2),
+		y: Math.round(document.documentElement.clientHeight / 2),
+		startDirectionX: -1,
 	}));
 }
   
@@ -437,23 +364,23 @@ function checkCollision (objectA, objectB) {
 		} else if (objectB instanceof Racket) {
 			racket = objectB;
 		}
-
+		
 		if (objectA instanceof Block) {
 			block = objectA;
 		} else if (objectB instanceof Block) {
 			block = objectB;
 		}
 
-		if (objectA instanceof Ball) {
+		/*if (objectA instanceof Ball) {
 			ball = objectA;
 		} else if (objectA instanceof Wall) {
-			wall = objectA;
-		}
+			ball = objectA;
+		}*/
 
 		if (objectB instanceof Ball) {
 			ball2 = objectB;
 		} else if (objectB instanceof Wall) {
-			wall2 = objectB;
+			ball2 = objectB;
 		}
 	  
 		if (ball && wall) {
@@ -540,23 +467,54 @@ function checkCollision (objectA, objectB) {
 				for (let i=Math.round(block.x); i<Math.round(block.x) + block.width; i++) {
 					for (let j=Math.round(ball.x); j<Math.round(ball.x) + ball.diametr; j++) {
 						if (i == j) {
+							
 							ball.invertDirectionY();
 							if (document.getElementById(block.id) != null) 
 								document.getElementById(block.id).remove();
 							for (let k=0; k<objects.length; k++) {
 									if (objects[k] != undefined 
 										&& objects[k].id != undefined 
-										&& block.id != undefined )
-									if (block.id == objects[k].id) {
-										if ((Math.floor(Math.random() * 1)) <= 1) {
-											add_box(objects[k].x, objects[k].y, objects[k].width)
+										&& block.id != undefined 
+									) {
+										if (block.id == objects[k].id) {
+											value_end++;
+											delete objects[k];
 										}
-										value_end++;
-										//console.log(objects[k]);
-										delete objects[k];
 									}
 							}
 							return;
+						}
+					}
+				}
+			}
+		}
+		
+		if (ball && ball2) {
+			if (ball.x + ball.diametr >= ball2.x 
+				&& ball.x <= ball2.x + ball2.width
+				&& ball.y + ball.diametr >= ball2.y 
+				&& ball.y  <= ball2.y + ball2.height
+			) {
+				for (let i=Math.round(ball2.y); i<Math.round(ball2.y) + ball2.height; i++) {
+					for (let j=Math.round(ball.y); j<Math.round(ball.y) + ball.diametr; j++) {
+						if (i == j)	{
+							ball.invertDirectionX();
+							//return;
+						}
+					}
+				}
+			}
+			
+			if (ball.y + ball.diametr >= ball2.y
+				&& ball.y <= ball2.y + ball2.height 
+				&& (((ball.x + ball.diametr) >= ball2.x)
+				&& (ball.x <= ball2.x + ball2.width))
+			) {
+				for (let i=Math.round(ball2.x); i<Math.round(ball2.x) + ball2.width; i++) {
+					for (let j=Math.round(ball.x); j<Math.round(ball.x) + ball.diametr; j++) {
+						if (i == j) {
+							ball.invertDirectionY();
+							//return;
 						}
 					}
 				}
